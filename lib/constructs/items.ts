@@ -36,7 +36,7 @@ export class ItemAPIFlow extends Construct {
         ],
       },
       depsLockFilePath: path.join(
-        "lambda/items/",
+        "lambda/items",
         "package-lock.json"
       ),
       environment: {
@@ -48,15 +48,15 @@ export class ItemAPIFlow extends Construct {
     };
     // Create a Lambda function for each of the CRUD operations
     const createOnelambda = new NodejsFunction(this, "createOneItemFunction", {
-      entry: path.join("lambda/items/", "create.js"), 
+      entry: path.join("lambda/items", "create.js"), 
       ...nodeJsFunctionProps,
     });
     const getOneLambda = new NodejsFunction(this, "getOneItemFunction", {
-      entry: path.join("lambda/items/", "get-one.js"),
+      entry: path.join("lambda/items", "get-one.js"),
       ...nodeJsFunctionProps,
     });
     const getAllLambda = new NodejsFunction(this, "getAllItemsFunction", {
-      entry: path.join("lambda/items/", "get-all.js"),
+      entry: path.join("lambda/items", "get-all.js"),
       ...nodeJsFunctionProps,
     });
     const deleteOneLambda = new NodejsFunction(this, "deleteItemFunction", {
