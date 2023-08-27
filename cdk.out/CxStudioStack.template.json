@@ -1,0 +1,2313 @@
+{
+ "Resources": {
+  "fileUploadBucketAF5E10C1": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": "cx-studio-items-bucket",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": false,
+     "BlockPublicPolicy": false,
+     "IgnorePublicAcls": false,
+     "RestrictPublicBuckets": false
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/fileUploadBucket/Resource"
+   }
+  },
+  "fileUploadBucketPolicy1657AA29": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "fileUploadBucketAF5E10C1"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "fileUploadBucketAF5E10C1",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/fileUploadBucket/Policy/Resource"
+   }
+  },
+  "cxStudioApi96ACFC7A": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Description": "Items API for Cx-Studio Challenge",
+    "Name": "CX Studio Items API"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Resource"
+   }
+  },
+  "cxStudioApiDeployment2FEDDF5Ab760acad5198742187a0c6da4384e13e": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Items API for Cx-Studio Challenge",
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "DependsOn": [
+    "cxStudioApiGET3DA666EE",
+    "cxStudioApihealthGET355DB53F",
+    "cxStudioApihealthC9922504",
+    "cxStudioApiitemsidDELETE4DF61FBE",
+    "cxStudioApiitemsidGET2716D1A6",
+    "cxStudioApiitemsidE79442ED",
+    "cxStudioApiitemsGET0A0A3C5E",
+    "cxStudioApiitemsPOST94185155",
+    "cxStudioApiitems1EF4933F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Deployment/Resource"
+   }
+  },
+  "cxStudioApiDeploymentStageprod8CA213E7": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "cxStudioApiDeployment2FEDDF5Ab760acad5198742187a0c6da4384e13e"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    },
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/DeploymentStage.prod/Resource"
+   }
+  },
+  "cxStudioApiitems1EF4933F": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "cxStudioApi96ACFC7A",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "items",
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/Resource"
+   }
+  },
+  "cxStudioApiitemsGETApiPermissionCxStudioStackcxStudioApi0AD49030GETitemsF7672639": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetAllItemsFunction8EDED52D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/GET/items"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..items"
+   }
+  },
+  "cxStudioApiitemsGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GETitems5C67198A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetAllItemsFunction8EDED52D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/GET/items"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..items"
+   }
+  },
+  "cxStudioApiitemsGET0A0A3C5E": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIgetAllItemsFunction8EDED52D",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "cxStudioApiitems1EF4933F"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/GET/Resource"
+   }
+  },
+  "cxStudioApiitemsPOSTApiPermissionCxStudioStackcxStudioApi0AD49030POSTitems58FC86F8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIcreateOneItemFunction9487A3BE",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/POST/items"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/POST/ApiPermission.CxStudioStackcxStudioApi0AD49030.POST..items"
+   }
+  },
+  "cxStudioApiitemsPOSTApiPermissionTestCxStudioStackcxStudioApi0AD49030POSTitems1F4CB1DC": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIcreateOneItemFunction9487A3BE",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/POST/items"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/POST/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.POST..items"
+   }
+  },
+  "cxStudioApiitemsPOST94185155": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcreateOneItemFunction9487A3BE",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "cxStudioApiitems1EF4933F"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/POST/Resource"
+   }
+  },
+  "cxStudioApiitemsidE79442ED": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "cxStudioApiitems1EF4933F"
+    },
+    "PathPart": "{id}",
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/Resource"
+   }
+  },
+  "cxStudioApiitemsidGETApiPermissionCxStudioStackcxStudioApi0AD49030GETitemsidE67C2452": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetOneItemFunctionD31E436D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/GET/items/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..items.{id}"
+   }
+  },
+  "cxStudioApiitemsidGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GETitemsid49C7C1AF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetOneItemFunctionD31E436D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/GET/items/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..items.{id}"
+   }
+  },
+  "cxStudioApiitemsidGET2716D1A6": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIgetOneItemFunctionD31E436D",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "cxStudioApiitemsidE79442ED"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/GET/Resource"
+   }
+  },
+  "cxStudioApiitemsidDELETEApiPermissionCxStudioStackcxStudioApi0AD49030DELETEitemsid8CBCCC56": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIdeleteItemFunction178C1A8A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/DELETE/items/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/ApiPermission.CxStudioStackcxStudioApi0AD49030.DELETE..items.{id}"
+   }
+  },
+  "cxStudioApiitemsidDELETEApiPermissionTestCxStudioStackcxStudioApi0AD49030DELETEitemsid2FFD6FF6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ItemsAPIdeleteItemFunction178C1A8A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/DELETE/items/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.DELETE..items.{id}"
+   }
+  },
+  "cxStudioApiitemsidDELETE4DF61FBE": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "DELETE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIdeleteItemFunction178C1A8A",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "cxStudioApiitemsidE79442ED"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/Resource"
+   }
+  },
+  "cxStudioApihealthC9922504": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "cxStudioApi96ACFC7A",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "health",
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/health/Resource"
+   }
+  },
+  "cxStudioApihealthGETApiPermissionCxStudioStackcxStudioApi0AD49030GEThealth05F25EB9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "healthCheckApi6B77329F",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/GET/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/health/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..health"
+   }
+  },
+  "cxStudioApihealthGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GEThealthE5BDF848": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "healthCheckApi6B77329F",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/GET/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/health/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..health"
+   }
+  },
+  "cxStudioApihealthGET355DB53F": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "healthCheckApi6B77329F",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "cxStudioApihealthC9922504"
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/health/GET/Resource"
+   }
+  },
+  "cxStudioApiGETApiPermissionCxStudioStackcxStudioApi0AD49030GET1E3B5C0E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "welcomeApiA8790984",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/",
+       {
+        "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+       },
+       "/GET/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET.."
+   }
+  },
+  "cxStudioApiGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GET874B8ADF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "welcomeApiA8790984",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "cxStudioApi96ACFC7A"
+       },
+       "/test-invoke-stage/GET/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET.."
+   }
+  },
+  "cxStudioApiGET3DA666EE": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "welcomeApiA8790984",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "cxStudioApi96ACFC7A",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "cxStudioApi96ACFC7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/cxStudioApi/Default/GET/Resource"
+   }
+  },
+  "ItemsAPIcxStudioDataTable0627D670": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "id",
+      "AttributeType": "S"
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "id",
+      "KeyType": "HASH"
+     }
+    ],
+    "ProvisionedThroughput": {
+     "ReadCapacityUnits": 5,
+     "WriteCapacityUnits": 5
+    },
+    "TableName": "cx-studio-db"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/cxStudioDataTable/Resource"
+   }
+  },
+  "ItemsAPIcreateOneItemFunctionServiceRole8F33D695": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/createOneItemFunction/ServiceRole/Resource"
+   }
+  },
+  "ItemsAPIcreateOneItemFunctionServiceRoleDefaultPolicy59028D53": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "fileUploadBucketAF5E10C1",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "fileUploadBucketAF5E10C1",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcxStudioDataTable0627D670",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ItemsAPIcreateOneItemFunctionServiceRoleDefaultPolicy59028D53",
+    "Roles": [
+     {
+      "Ref": "ItemsAPIcreateOneItemFunctionServiceRole8F33D695"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/createOneItemFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ItemsAPIcreateOneItemFunction9487A3BE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "88381921af0009985d3ee6d4cd75d16e01a88bf2ccf5d88c8fa429dc9b0d16a0.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "PRIMARY_KEY": "id",
+      "BUCKET_NAME": {
+       "Ref": "fileUploadBucketAF5E10C1"
+      },
+      "TABLE_NAME": {
+       "Ref": "ItemsAPIcxStudioDataTable0627D670"
+      },
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ItemsAPIcreateOneItemFunctionServiceRole8F33D695",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "ItemsAPIcreateOneItemFunctionServiceRoleDefaultPolicy59028D53",
+    "ItemsAPIcreateOneItemFunctionServiceRole8F33D695"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/createOneItemFunction/Resource",
+    "aws:asset:path": "asset.88381921af0009985d3ee6d4cd75d16e01a88bf2ccf5d88c8fa429dc9b0d16a0",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ItemsAPIgetOneItemFunctionServiceRole5D54B45B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getOneItemFunction/ServiceRole/Resource"
+   }
+  },
+  "ItemsAPIgetOneItemFunctionServiceRoleDefaultPolicyE5915711": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcxStudioDataTable0627D670",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ItemsAPIgetOneItemFunctionServiceRoleDefaultPolicyE5915711",
+    "Roles": [
+     {
+      "Ref": "ItemsAPIgetOneItemFunctionServiceRole5D54B45B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getOneItemFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ItemsAPIgetOneItemFunctionD31E436D": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "dcc2e51f49d4f28ddaf093c4f6a8769c1ac54f1df32bcfefdbef7eccce0e3646.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "PRIMARY_KEY": "id",
+      "BUCKET_NAME": {
+       "Ref": "fileUploadBucketAF5E10C1"
+      },
+      "TABLE_NAME": {
+       "Ref": "ItemsAPIcxStudioDataTable0627D670"
+      },
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetOneItemFunctionServiceRole5D54B45B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "ItemsAPIgetOneItemFunctionServiceRoleDefaultPolicyE5915711",
+    "ItemsAPIgetOneItemFunctionServiceRole5D54B45B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getOneItemFunction/Resource",
+    "aws:asset:path": "asset.dcc2e51f49d4f28ddaf093c4f6a8769c1ac54f1df32bcfefdbef7eccce0e3646",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ItemsAPIgetAllItemsFunctionServiceRoleFD522726": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getAllItemsFunction/ServiceRole/Resource"
+   }
+  },
+  "ItemsAPIgetAllItemsFunctionServiceRoleDefaultPolicy219C576F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcxStudioDataTable0627D670",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ItemsAPIgetAllItemsFunctionServiceRoleDefaultPolicy219C576F",
+    "Roles": [
+     {
+      "Ref": "ItemsAPIgetAllItemsFunctionServiceRoleFD522726"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getAllItemsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ItemsAPIgetAllItemsFunction8EDED52D": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "f4204778bdb7c80f02cce12f3200d4570d69430042839e1f9386ed492a3e812c.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "PRIMARY_KEY": "id",
+      "BUCKET_NAME": {
+       "Ref": "fileUploadBucketAF5E10C1"
+      },
+      "TABLE_NAME": {
+       "Ref": "ItemsAPIcxStudioDataTable0627D670"
+      },
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ItemsAPIgetAllItemsFunctionServiceRoleFD522726",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "ItemsAPIgetAllItemsFunctionServiceRoleDefaultPolicy219C576F",
+    "ItemsAPIgetAllItemsFunctionServiceRoleFD522726"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/getAllItemsFunction/Resource",
+    "aws:asset:path": "asset.f4204778bdb7c80f02cce12f3200d4570d69430042839e1f9386ed492a3e812c",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ItemsAPIdeleteItemFunctionServiceRole23B60AF2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/deleteItemFunction/ServiceRole/Resource"
+   }
+  },
+  "ItemsAPIdeleteItemFunctionServiceRoleDefaultPolicyD4E946CD": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcxStudioDataTable0627D670",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ItemsAPIdeleteItemFunctionServiceRoleDefaultPolicyD4E946CD",
+    "Roles": [
+     {
+      "Ref": "ItemsAPIdeleteItemFunctionServiceRole23B60AF2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/deleteItemFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ItemsAPIdeleteItemFunction178C1A8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "eebac37fd4ad7b67a664dcd751d9f691c3c2f09a13eb7eea9d4015bee79fd6d1.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "PRIMARY_KEY": "id",
+      "BUCKET_NAME": {
+       "Ref": "fileUploadBucketAF5E10C1"
+      },
+      "TABLE_NAME": {
+       "Ref": "ItemsAPIcxStudioDataTable0627D670"
+      },
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ItemsAPIdeleteItemFunctionServiceRole23B60AF2",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "ItemsAPIdeleteItemFunctionServiceRoleDefaultPolicyD4E946CD",
+    "ItemsAPIdeleteItemFunctionServiceRole23B60AF2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/ItemsAPI/deleteItemFunction/Resource",
+    "aws:asset:path": "asset.eebac37fd4ad7b67a664dcd751d9f691c3c2f09a13eb7eea9d4015bee79fd6d1",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "viewDynammoDataRenderedServiceRoleF9F4AB5D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/Rendered/ServiceRole/Resource"
+   }
+  },
+  "viewDynammoDataRenderedServiceRoleDefaultPolicy4A43CD52": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ItemsAPIcxStudioDataTable0627D670",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "viewDynammoDataRenderedServiceRoleDefaultPolicy4A43CD52",
+    "Roles": [
+     {
+      "Ref": "viewDynammoDataRenderedServiceRoleF9F4AB5D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/Rendered/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "viewDynammoDataRenderedEDE329C8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "d9cdd7bdd784d6248d9a68dc7b1e49029a879f67840bd9cd5a3fd41de8b64c15.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "ItemsAPIcxStudioDataTable0627D670"
+      },
+      "TITLE": "Cx Studio Data Dump",
+      "SORT_BY": ""
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "viewDynammoDataRenderedServiceRoleF9F4AB5D",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "viewDynammoDataRenderedServiceRoleDefaultPolicy4A43CD52",
+    "viewDynammoDataRenderedServiceRoleF9F4AB5D"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/Rendered/Resource",
+    "aws:asset:path": "asset.d9cdd7bdd784d6248d9a68dc7b1e49029a879f67840bd9cd5a3fd41de8b64c15",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "viewDynammoDataViewerEndpointD802D61B": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Name": "ViewerEndpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Resource"
+   }
+  },
+  "viewDynammoDataViewerEndpointDeployment9122ED504296e8fe77dc9d72c67ff000f56351fc": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Automatically created by the RestApi construct",
+    "RestApiId": {
+     "Ref": "viewDynammoDataViewerEndpointD802D61B"
+    }
+   },
+   "DependsOn": [
+    "viewDynammoDataViewerEndpointproxyANYBFE4833C",
+    "viewDynammoDataViewerEndpointproxy306F64F8",
+    "viewDynammoDataViewerEndpointANY09F7E000"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Deployment/Resource"
+   }
+  },
+  "viewDynammoDataViewerEndpointDeploymentStageprodDE0ABCB2": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "viewDynammoDataViewerEndpointDeployment9122ED504296e8fe77dc9d72c67ff000f56351fc"
+    },
+    "RestApiId": {
+     "Ref": "viewDynammoDataViewerEndpointD802D61B"
+    },
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/DeploymentStage.prod/Resource"
+   }
+  },
+  "viewDynammoDataViewerEndpointproxy306F64F8": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "viewDynammoDataViewerEndpointD802D61B",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "{proxy+}",
+    "RestApiId": {
+     "Ref": "viewDynammoDataViewerEndpointD802D61B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/Resource"
+   }
+  },
+  "viewDynammoDataViewerEndpointproxyANYApiPermissionCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYproxy60066617": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "viewDynammoDataRenderedEDE329C8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "viewDynammoDataViewerEndpointD802D61B"
+       },
+       "/",
+       {
+        "Ref": "viewDynammoDataViewerEndpointDeploymentStageprodDE0ABCB2"
+       },
+       "/*/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..{proxy+}"
+   }
+  },
+  "viewDynammoDataViewerEndpointproxyANYApiPermissionTestCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYproxyDE08D2DD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "viewDynammoDataRenderedEDE329C8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "viewDynammoDataViewerEndpointD802D61B"
+       },
+       "/test-invoke-stage/*/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.Test.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..{proxy+}"
+   }
+  },
+  "viewDynammoDataViewerEndpointproxyANYBFE4833C": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "ANY",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "viewDynammoDataRenderedEDE329C8",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "viewDynammoDataViewerEndpointproxy306F64F8"
+    },
+    "RestApiId": {
+     "Ref": "viewDynammoDataViewerEndpointD802D61B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/Resource"
+   }
+  },
+  "viewDynammoDataViewerEndpointANYApiPermissionCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYDBAF0492": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "viewDynammoDataRenderedEDE329C8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "viewDynammoDataViewerEndpointD802D61B"
+       },
+       "/",
+       {
+        "Ref": "viewDynammoDataViewerEndpointDeploymentStageprodDE0ABCB2"
+       },
+       "/*/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/ApiPermission.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY.."
+   }
+  },
+  "viewDynammoDataViewerEndpointANYApiPermissionTestCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYFD98F443": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "viewDynammoDataRenderedEDE329C8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "viewDynammoDataViewerEndpointD802D61B"
+       },
+       "/test-invoke-stage/*/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/ApiPermission.Test.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY.."
+   }
+  },
+  "viewDynammoDataViewerEndpointANY09F7E000": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "ANY",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "viewDynammoDataRenderedEDE329C8",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "viewDynammoDataViewerEndpointD802D61B",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "viewDynammoDataViewerEndpointD802D61B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/Resource"
+   }
+  },
+  "healthCheckApiServiceRole6123A7E6": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/healthCheckApi/healthCheckApi/ServiceRole/Resource"
+   }
+  },
+  "healthCheckApi6B77329F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "7f6e2666db88d5a06599aa1bfa227f0fff0d4f87238cbe78d215a54815ebec1a.zip"
+    },
+    "Handler": "health.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "healthCheckApiServiceRole6123A7E6",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "healthCheckApiServiceRole6123A7E6"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/healthCheckApi/healthCheckApi/Resource",
+    "aws:asset:path": "asset.7f6e2666db88d5a06599aa1bfa227f0fff0d4f87238cbe78d215a54815ebec1a",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "welcomeApiServiceRoleE569BA32": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/welcomeApi/welcomeApi/ServiceRole/Resource"
+   }
+  },
+  "welcomeApiA8790984": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "7f6e2666db88d5a06599aa1bfa227f0fff0d4f87238cbe78d215a54815ebec1a.zip"
+    },
+    "Handler": "welcome.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "welcomeApiServiceRoleE569BA32",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x"
+   },
+   "DependsOn": [
+    "welcomeApiServiceRoleE569BA32"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/welcomeApi/welcomeApi/Resource",
+    "aws:asset:path": "asset.7f6e2666db88d5a06599aa1bfa227f0fff0d4f87238cbe78d215a54815ebec1a",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQ206EMBCGn2XvoYokRi9313jlgazek9LOYoG2hGldCeHd7QEWvfq/OfTvzNyRx5zc7ugFU8bbtBMVmT4MZW3iUuWEOZkOlrVgkuNZLRSl0J1g45Ze4hgcKMKc0F7U1MCFjmQ6AZp9L3z/ik/Qd3qUoIL5n8gNUIPPRXD92g4MvOk1WIwiv4L50tynFnqhsuJ0/agY9M+4Ns9JF4pkcu0FDFIgCq3842ermPG8wpzwUVGpubvKJ6268GuA1aVUmkOD5C3I1UBQ6VbW8UHQ7VyR5gTzkiKCQbL3MvvauzW9NduSoeKvIFT9b2PHR624iFP6IUiDN9/ZA8nuSbZrUIh0sMoICeQU9RdQHN7g6wEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "CxStudioStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "cxStudioApiEndpointF6755638": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "cxStudioApi96ACFC7A"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "cxStudioApiDeploymentStageprod8CA213E7"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "viewDynammoDataViewerEndpointEF9CCF1A": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "viewDynammoDataViewerEndpointD802D61B"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "viewDynammoDataViewerEndpointDeploymentStageprodDE0ABCB2"
+      },
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

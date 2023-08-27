@@ -1,0 +1,459 @@
+{
+  "version": "33.0.0",
+  "artifacts": {
+    "CxStudioStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "CxStudioStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "CxStudioStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "CxStudioStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e561f1ec9e0cc74cd2173765dc9fcb22e44ab3b0623ce8c90e35a9ce89229088.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "CxStudioStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CxStudioStack.assets"
+      ],
+      "metadata": {
+        "/CxStudioStack/fileUploadBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "fileUploadBucketAF5E10C1"
+          }
+        ],
+        "/CxStudioStack/fileUploadBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "fileUploadBucketPolicy1657AA29"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApi96ACFC7A"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiDeployment2FEDDF5Ab760acad5198742187a0c6da4384e13e"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiDeploymentStageprod8CA213E7"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiEndpointF6755638"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitems1EF4933F"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsGETApiPermissionCxStudioStackcxStudioApi0AD49030GETitemsF7672639"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GETitems5C67198A"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsGET0A0A3C5E"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/POST/ApiPermission.CxStudioStackcxStudioApi0AD49030.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsPOSTApiPermissionCxStudioStackcxStudioApi0AD49030POSTitems58FC86F8"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/POST/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsPOSTApiPermissionTestCxStudioStackcxStudioApi0AD49030POSTitems1F4CB1DC"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsPOST94185155"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidE79442ED"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..items.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidGETApiPermissionCxStudioStackcxStudioApi0AD49030GETitemsidE67C2452"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..items.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GETitemsid49C7C1AF"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidGET2716D1A6"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/ApiPermission.CxStudioStackcxStudioApi0AD49030.DELETE..items.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidDELETEApiPermissionCxStudioStackcxStudioApi0AD49030DELETEitemsid8CBCCC56"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.DELETE..items.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidDELETEApiPermissionTestCxStudioStackcxStudioApi0AD49030DELETEitemsid2FFD6FF6"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/items/{id}/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiitemsidDELETE4DF61FBE"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/health/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApihealthC9922504"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/health/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApihealthGETApiPermissionCxStudioStackcxStudioApi0AD49030GEThealth05F25EB9"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/health/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApihealthGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GEThealthE5BDF848"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/health/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApihealthGET355DB53F"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/GET/ApiPermission.CxStudioStackcxStudioApi0AD49030.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiGETApiPermissionCxStudioStackcxStudioApi0AD49030GET1E3B5C0E"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/GET/ApiPermission.Test.CxStudioStackcxStudioApi0AD49030.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiGETApiPermissionTestCxStudioStackcxStudioApi0AD49030GET874B8ADF"
+          }
+        ],
+        "/CxStudioStack/cxStudioApi/Default/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cxStudioApiGET3DA666EE"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "If you are relying on AWS SDK v2 to be present in the Lambda environment already, please explicitly configure a NodeJS runtime of Node 16 or lower. [ack: @aws-cdk/aws-lambda-nodejs:sdkV2NotInRuntime]",
+            "trace": [
+              "Annotations.addMessage (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1687)",
+              "Annotations.addWarningV2 (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/core/lib/annotations.js:1:758)",
+              "new Bundling (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:2649)",
+              "Function.bundle (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:605)",
+              "new NodejsFunction (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/function.js:1:1273)",
+              "new ItemAPIFlow (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/lib/constructs/items.ts:51:29)",
+              "new CxStudioStack (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/lib/cx-studio-stack.ts:34:22)",
+              "Object.<anonymous> (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/bin/cx-studio.ts:6:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1256:14)",
+              "Module.m._compile (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/index.ts:1618:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1310:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/index.ts:1621:12)",
+              "Module.load (node:internal/modules/cjs/loader:1119:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:960:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "phase4 (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/bin.ts:649:14)",
+              "bootstrap (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/bin.ts:95:10)",
+              "main (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/bin.ts:55:10)",
+              "Object.<anonymous> (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/ts-node/src/bin.ts:800:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1256:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1310:10)",
+              "Module.load (node:internal/modules/cjs/loader:1119:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:960:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/cxStudioDataTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "ItemsAPIcxStudioDataTable0627D670"
+            }
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/cxStudioDataTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIcxStudioDataTable0627D670"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/createOneItemFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIcreateOneItemFunctionServiceRole8F33D695"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/createOneItemFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIcreateOneItemFunctionServiceRoleDefaultPolicy59028D53"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/createOneItemFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIcreateOneItemFunction9487A3BE"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getOneItemFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetOneItemFunctionServiceRole5D54B45B"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getOneItemFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetOneItemFunctionServiceRoleDefaultPolicyE5915711"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getOneItemFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetOneItemFunctionD31E436D"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getAllItemsFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetAllItemsFunctionServiceRoleFD522726"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getAllItemsFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetAllItemsFunctionServiceRoleDefaultPolicy219C576F"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/getAllItemsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIgetAllItemsFunction8EDED52D"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/deleteItemFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIdeleteItemFunctionServiceRole23B60AF2"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/deleteItemFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIdeleteItemFunctionServiceRoleDefaultPolicyD4E946CD"
+          }
+        ],
+        "/CxStudioStack/ItemsAPI/deleteItemFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ItemsAPIdeleteItemFunction178C1A8A"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/Rendered/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataRenderedServiceRoleF9F4AB5D"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/Rendered/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataRenderedServiceRoleDefaultPolicy4A43CD52"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/Rendered/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataRenderedEDE329C8"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointD802D61B"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointDeployment9122ED504296e8fe77dc9d72c67ff000f56351fc"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointDeploymentStageprodDE0ABCB2"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointEF9CCF1A"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointproxy306F64F8"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointproxyANYApiPermissionCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYproxy60066617"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.Test.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointproxyANYApiPermissionTestCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYproxyDE08D2DD"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointproxyANYBFE4833C"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/ApiPermission.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointANYApiPermissionCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYDBAF0492"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/ApiPermission.Test.CxStudioStackviewDynammoDataViewerEndpoint77282DB3.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointANYApiPermissionTestCxStudioStackviewDynammoDataViewerEndpoint77282DB3ANYFD98F443"
+          }
+        ],
+        "/CxStudioStack/viewDynammoData/ViewerEndpoint/Default/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "viewDynammoDataViewerEndpointANY09F7E000"
+          }
+        ],
+        "/CxStudioStack/healthCheckApi/healthCheckApi/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "healthCheckApiServiceRole6123A7E6"
+          }
+        ],
+        "/CxStudioStack/healthCheckApi/healthCheckApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "healthCheckApi6B77329F"
+          }
+        ],
+        "/CxStudioStack/welcomeApi/welcomeApi/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "welcomeApiServiceRoleE569BA32"
+          }
+        ],
+        "/CxStudioStack/welcomeApi/welcomeApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "welcomeApiA8790984"
+          }
+        ],
+        "/CxStudioStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/CxStudioStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/CxStudioStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/CxStudioStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "CxStudioStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
