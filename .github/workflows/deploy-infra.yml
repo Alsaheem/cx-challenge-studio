@@ -1,0 +1,44 @@
+name: Test and Deploy Infrastructure
+
+on:
+  push:
+    branches:
+      - production
+
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.16.1"
+
+      - name: Test Items CDK stack
+        run: |
+          npm install
+          npm run test
+
+      - name: Configure AWS Credentials for deployment
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+          aws-access-key-id        : ${{ secrets.MY_AWS_ACCESS_KEY }}
+          aws-secret-access-key    : ${{ secrets.MY_AWS_SECRET_KEY }}
+          aws-region               : ap-southeast-2
+      
+      - name: Deploy Items CDK stack to AWS
+        run: |
+          cdk deploy --require-approval never
+
+      - name: Test that health endpoint is reachable 
+        run: |
+          echo "Waiting for the CDK deployment to be completed..."
+          sleep 3
+          API_HEALTH_ENDPOINT="https://cxstudio-api.adebisiayomide.com/health"
+          curl -X GET "$API_HEALTH_ENDPOINT"
+
+

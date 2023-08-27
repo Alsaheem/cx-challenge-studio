@@ -1,0 +1,25 @@
+Dear Candidate,
+Thank you for your continued interest with Cx Studio. The Engineer Role is a very important
+position within Cx Studio and we are seeking an individual who not only has development
+experience but also knowledge of best practices. For the next step in your interview
+process, we’d ask that you participate in the following exercise.
+Return the completed exercise no later than 5pm on Friday 8th of September, 2023. If you
+have any questions, feel free to reach out to me.
+
+Exercise – Going AWS Serverless
+Build a CDK deployment that creates an API Gateway, S3 Bucket, Lambda and DynamoDB.
+Build what you need to build.
+The Use case is that you need to allow a user to upload a file to S3 using the API and then
+insert the data in the file into a DynamoDB table. Show off. Make it interesting. Add what
+you think you need to add that would make it secure/redundant/HA. Include a README.md
+file that describes how we need to deploy it using CDK. Also note any challenges that you
+may have had.
+Bonus points:
+- full CRUD API to access data that gets loaded into DynamoDB
+- unit tests.
+Please deliver all source code in the form of a git repo.
+
+Sincerely,
+
+Lorne Currie
+Information Technology Manager
