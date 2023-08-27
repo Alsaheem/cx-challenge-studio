@@ -7,4 +7,4 @@ node_modules
 .cdk.staging
 
 # Enable lambda
-!lambda/*.js
+!lambda/**/*.js
