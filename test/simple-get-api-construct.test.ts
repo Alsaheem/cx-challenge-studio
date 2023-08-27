@@ -17,6 +17,5 @@ test("Lambda Function Created", () => {
   // THEN
 
   const template = Template.fromStack(stack);
-  console.log(template);
   template.resourceCountIs("AWS::Lambda::Function", 1);
 });
