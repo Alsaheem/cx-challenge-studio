@@ -16,7 +16,7 @@ https://r7wr6p8fik.execute-api.ap-southeast-2.amazonaws.com/prod/
 
 #### CICD Pipeline : 
 I had some extra time , so i decided to add a CICD pipeline for automated unit tests and integration tests
-- View cicd pipeline here 
+- View cicd pipeline here https://github.com/Alsaheem/cx-challenge-studio/actions
 
 #### Infrastructure Diagram: 
 This is the visual representation of the whole serverless stack, I hope it explains the application flow 

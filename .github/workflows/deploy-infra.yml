@@ -18,9 +18,16 @@ jobs:
         with:
           node-version: "18.16.1"
 
-      - name: Test Items CDK stack
+      - name: install packages
         run: |
+          npm install -g aws-cdk
           npm install
+          cd lambda/items
+          npm install
+          cd ../../
+
+      - name: Test CDK stack
+        run: |
           npm run test
 
       - name: Configure AWS Credentials for deployment
@@ -40,5 +47,6 @@ jobs:
           sleep 3
           API_HEALTH_ENDPOINT="https://cxstudio-api.adebisiayomide.com/health"
           curl -X GET "$API_HEALTH_ENDPOINT"
+          echo "CDK stack deployed successfully"
 
 

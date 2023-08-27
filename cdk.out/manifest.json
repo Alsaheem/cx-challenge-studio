@@ -205,7 +205,7 @@
               "new Bundling (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:2649)",
               "Function.bundle (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:605)",
               "new NodejsFunction (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/function.js:1:1273)",
-              "new ItemAPIFlow (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/lib/constructs/items.ts:51:29)",
+              "new ItemAPIFlow (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/lib/constructs/items.ts:50:29)",
               "new CxStudioStack (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/lib/cx-studio-stack.ts:34:22)",
               "Object.<anonymous> (/Users/Ayomide/Desktop/tester/cx-studio/cx-studio/bin/cx-studio.ts:6:1)",
               "Module._compile (node:internal/modules/cjs/loader:1256:14)",
