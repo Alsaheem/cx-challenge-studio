@@ -26,6 +26,9 @@ jobs:
           npm install
           cd lambda
           ls
+          cd items
+          ls
+          pwd
 
       - name: Echo Success
         run: |
