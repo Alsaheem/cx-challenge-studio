@@ -48,4 +48,6 @@ Follow the other Perecusites listed here to set up your local system https://cdk
 Running `cdk deploy` would deploy ths stack and output the api endpoint fot both the Rest API and Dynamodb table viewer
 
 ## TODO
-- Wrote snapshot tests for the stack# cx-challenge-studio
+- Add some extra parameter validations
+- Write snapshot tests for the stack
+
