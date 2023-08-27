@@ -24,8 +24,10 @@ jobs:
           ls
           npm install -g aws-cdk
           npm install
-          npm run test
+          cd lambda
+          ls
 
       - name: Echo Success
         run: |
+          npm run test
           echo "Testing successful"
