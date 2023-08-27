@@ -18,10 +18,16 @@ jobs:
         with:
           node-version: "18.16.1"
 
-      - name: Test Items CDK stack
+      - name: install packages
         run: |
           npm install -g aws-cdk
           npm install
+          cd lambda/items
+          npm install
+          cd ../../
+
+      - name: Test Items CDK stack
+        run: |
           npm run test
 
       - name: Echo Success
