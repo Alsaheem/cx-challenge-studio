@@ -20,6 +20,7 @@ jobs:
 
       - name: Test Items CDK stack
         run: |
+          npm install -g aws-cdk
           npm install
           npm run test
 
