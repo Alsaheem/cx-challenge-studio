@@ -20,12 +20,9 @@ jobs:
 
       - name: Test Items CDK stack
         run: |
-          pwd
-          ls
           npm install -g aws-cdk
           npm install
           cd lambda
-          ls
           cd items
           ls
           pwd
